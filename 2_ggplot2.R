@@ -1,6 +1,6 @@
 ### -- ggplot2 section
 ### -- By - Auriel Fournier
-### -- https://github.com/aurielfournier/AOSSCO17
+### -- https://github.com/aurielfournier/GERS2018
 
 # use install.packages() if you don't have these already
 library(dplyr)

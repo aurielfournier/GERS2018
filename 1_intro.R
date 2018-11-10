@@ -1,7 +1,7 @@
 ### -- Introduction and refreshers for R
 ### -- By - Matt Boone (2015) & Auriel Fournier (2015)
 ### -- Modified by Auriel Fournier for 2016 NAOC Workshop
-### -- https://github.com/aurielfournier/AOSSCO17  
+### -- https://github.com/aurielfournier/GERS2018  
 
 #######################################
 ### -- Necessary packages
@@ -14,6 +14,10 @@ library(ggplot2)
 ###################
 ### -- Loading In The Data
 ####################
+
+# set working directory!!
+
+# discuss eBird data
 
 ebird <- read.csv("eBird_workshop.csv")
 
@@ -211,48 +215,3 @@ ebird %>%
   group_by(state) %>%
   sample_n(2) %>%
   summarize(mean=mean(presence))
-
-########################
-## Dates and Times
-########################
-
-#########dates and times#############################
-
-# We're first going to need to tackle dates. R can handle dates, and it can be quite powerful, but a bit annoying.
-# The base functions for this are as.Date, as.POSIXct, as.POSIXlt
-# The syntax for these is essentially the same, feed it a date, and tell it the format
-
-Sys.time()
-
-## Good Resource on what letters = what in format
-# https://stat.ethz.ch/R-manual/R-devel/library/base/html/strptime.html
-
-(dt<-as.Date(Sys.time(),format='%Y-%m-%d'))
-(ct<-as.POSIXct(Sys.time(),format='%Y-%m-%d %H%M%D'))
-(lt<-as.POSIXlt(Sys.time(),format='%Y-%m-%d %H%M%D'))
-
-# whats great is we can now do math on time
-
-dt-10   ##since day is the lowest measurement it counts in days
-ct-10   ##however counts in seconds
-lt-10   ##does the same thing
-
-# as.POSIXlt is really useful because it allows you to call particular pieces of the time out
-lt$yday   ##julian date
-lt$hour   ##hour
-lt$year   ##what.....time since 1900???
-lt$year+1900  ##converts you to standard time
-
-##these are particularly useful because you can do math on time
-earlytime<-as.POSIXct('2015-03-23',format='%Y-%m-%d')
-
-times <- c(0,31)
-
-round(lt$sec,1) %>% filter(match %in% times)
-
-
-ct - earlytime 
-
-##as well as logical statements
-ct > earlytime
-ct == earlytime
